@@ -10,6 +10,8 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    permissions:
+      contents: write 
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
@@ -21,10 +23,12 @@ jobs:
 
       - name: Compile exe
         run: |
+          pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
           pip install pyinstaller pynput
           pyinstaller --onefile --noconsole main.py
+          dir dist 
 
       - name: Upload to Release
         uses: softprops/action-gh-release@v2
         with:
-          files: dist/*.exe
+          files: dist/main.exe
