@@ -12,7 +12,6 @@ jobs:
     runs-on: windows-latest
     permissions:
       contents: write
-      pull-requests: write
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
@@ -27,9 +26,9 @@ jobs:
           pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
           pip install pyinstaller pynput
           pyinstaller --onefile --noconsole main.py
-          dir dist
 
-      - name: Upload to Release
-        uses: softprops/action-gh-release@v2
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
         with:
-          files: dist/main.exe
+          name: windows-exe
+          path: dist/main.exe
