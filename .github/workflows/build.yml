@@ -19,11 +19,14 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Compile exe
+      - name: Install dependencies
         run: |
-          pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
-          pip install pyinstaller pynput
-          pyinstaller --onefile --noconsole main.py
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+
+      - name: Compile exe（保留控制台，支持input输入）
+        run: |
+          pyinstaller --onefile main.py
 
       - name: Save EXE Artifact
         uses: actions/upload-artifact@v4
