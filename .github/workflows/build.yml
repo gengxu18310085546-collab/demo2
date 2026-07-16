@@ -2,8 +2,7 @@ name: Build Windows EXE
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches: [ main ]
 
 jobs:
   build:
@@ -27,7 +26,6 @@ jobs:
       - name: Build EXE（保留控制台，兼容input输入）
         run: pyinstaller --onefile main.py
 
-      # 方案A：稳妥无权限报错，文件存在Actions制品里手动下载（推荐）
       - name: Save EXE Artifact
         uses: actions/upload-artifact@v4
         with:
