@@ -19,17 +19,17 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      - name: Install PyInstaller
         run: |
           python -m pip install --upgrade pip
           pip install pyinstaller
 
-      - name: Compile exe（保留控制台，支持input输入）
-        run: |
-          pyinstaller --onefile main.py
+      - name: Build EXE（保留控制台，解决input报错）
+        run: pyinstaller --onefile main.py
 
-      - name: Save EXE Artifact
-        uses: actions/upload-artifact@v4
+      - name: Upload exe to Release资产
+        uses: softprops/action-gh-release@v2
         with:
-          name: windows-main-exe
-          path: dist/main.exe
+          files: dist/main.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
