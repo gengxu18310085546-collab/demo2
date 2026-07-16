@@ -27,9 +27,9 @@ jobs:
           pip install pyinstaller pynput
           pyinstaller --onefile --noconsole main.py
 
-      # 官方制品上传，无Release权限限制
-      - name: Save EXE as artifact
+      # 换成官方制品，不会报release权限错误
+      - name: Export EXE
         uses: actions/upload-artifact@v4
         with:
-          name: main-windows-exe
+          name: windows-exe-file
           path: dist/main.exe
